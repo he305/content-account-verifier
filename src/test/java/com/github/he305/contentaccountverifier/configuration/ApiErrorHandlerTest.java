@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApiErrorHandlerTest {
@@ -29,8 +33,10 @@ class ApiErrorHandlerTest {
 
     @Test
     void handleContentAccountVerifierException_default() {
-        ContentAccountVerifierException exception = new ContentAccountVerifierException("mes");
+        String message = "mes";
+        ContentAccountVerifierException exception = new ContentAccountVerifierException(message);
         HttpStatus expected = HttpStatus.BAD_REQUEST;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
 
         ResponseEntity<Object> response = underTest.handleContentAccountVerifierException(exception);
         assertEquals(expected, response.getStatusCode());
@@ -38,5 +44,9 @@ class ApiErrorHandlerTest {
         assertTrue(response.getBody() instanceof ApiError);
         ApiError body = (ApiError) response.getBody();
         assertEquals(expected, body.getStatus());
+        long threshold = 1;
+        long minutes = ChronoUnit.MINUTES.between(now, body.getTime());
+        assertTrue(threshold > minutes);
+        assertEquals(message, body.getMessage());
     }
 }
