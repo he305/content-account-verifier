@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class YoutubeVerifierServiceImplTest {
+class WasdVerifierServiceImplTest {
 
     @Mock
     private NetworkUtils networkUtils;
 
     @InjectMocks
-    private YoutubeVerifierServiceImpl underTest;
+    private WasdVerifierServiceImpl underTest;
 
     @Test
     void verify_valid() {
@@ -29,7 +29,7 @@ class YoutubeVerifierServiceImplTest {
 
     @Test
     void getType() {
-        Platform expected = Platform.YOUTUBE;
+        Platform expected = Platform.WASD;
         Platform actual = underTest.getType();
         assertEquals(expected, actual);
     }
