@@ -31,5 +31,8 @@ class ContentAccountNameValidatorTest {
         invalidStrings.forEach(invalidString ->
                 assertThrows(ContentAccountNameInvalidException.class, () -> ContentAccountNameValidator.validate(invalidString))
         );
+
+        String nullString = null;
+        assertThrows(ContentAccountNameInvalidException.class, () -> ContentAccountNameValidator.validate(nullString));
     }
 }
