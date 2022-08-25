@@ -1,0 +1,13 @@
+server:
+  port: 8100
+
+spring:
+  application:
+    name: content-account-verifier
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_HOST:http://localhost:9000/eureka}
+  instance:
+    instance-id: content-account-verifier-${random.uuid}
