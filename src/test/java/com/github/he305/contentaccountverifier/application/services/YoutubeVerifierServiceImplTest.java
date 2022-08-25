@@ -1,28 +1,22 @@
 package com.github.he305.contentaccountverifier.application.services;
 
-import com.github.he305.contentaccountverifier.domain.exceptions.VerifierServiceException;
+import com.github.he305.contentaccountverifier.application.utls.NetworkUtils;
 import com.github.he305.contentaccountverifier.domain.model.enums.Platform;
 import com.github.he305.contentaccountverifier.domain.model.values.ContentAccountName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class YoutubeVerifierServiceImplTest {
 
     @Mock
-    private RestTemplate restTemplate;
+    private NetworkUtils networkUtils;
 
     @InjectMocks
     private YoutubeVerifierServiceImpl underTest;
@@ -31,27 +25,6 @@ class YoutubeVerifierServiceImplTest {
     void verify_valid() {
         ContentAccountName name = new ContentAccountName("UCs9_O1tRPMQTHQ-N_L6FU2g");
         assertDoesNotThrow(() -> underTest.verify(name));
-    }
-
-    @Test
-    void verify_ResourceAccessException() {
-        ContentAccountName name = new ContentAccountName("UCs9_O1tRPMQTHQ-N_L6FU2gs");
-        when(restTemplate.getForObject(Mockito.anyString(), eq(String.class))).thenThrow(ResourceAccessException.class);
-        assertThrows(VerifierServiceException.class, () -> underTest.verify(name));
-    }
-
-    @Test
-    void verify_HttpClientErrorException() {
-        ContentAccountName name = new ContentAccountName("UCs9_O1tRPMQTHQ-N_L6FU2gs");
-        when(restTemplate.getForObject(Mockito.anyString(), eq(String.class))).thenThrow(HttpClientErrorException.class);
-        assertThrows(VerifierServiceException.class, () -> underTest.verify(name));
-    }
-
-    @Test
-    void verify_HttpServerErrorException() {
-        ContentAccountName name = new ContentAccountName("UCs9_O1tRPMQTHQ-N_L6FU2gs");
-        when(restTemplate.getForObject(Mockito.anyString(), eq(String.class))).thenThrow(HttpServerErrorException.class);
-        assertThrows(VerifierServiceException.class, () -> underTest.verify(name));
     }
 
     @Test
