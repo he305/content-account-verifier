@@ -23,10 +23,17 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, env, beans, metrics
+        include: health, info, env, beans, metrics, prometheus
   info:
     env:
       enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
 info:
   app:
     name: Content account verifier
