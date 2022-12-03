@@ -32,9 +32,9 @@ services:
       - content-core-db
       - content-discovery
     environment:
-      - twitch-client-id-env= #IF TWITCH SUPPORT IS REQUIRED, PASS THE TWITCH CLIENT ID 
-      - twitch-client-secret-env= #IF TWITCH SUPPORT IS REQUIRED, PASS THE TWITCH CLIENT SECRET 
-      - wasd-token= #IF WASD SUPPORT IS REQUIRED, PASS THE WASD TOKEN
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://content-core-db:5432/content-core-db
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
       - EUREKA_HOST=http://content-discovery:9000/eureka
     networks:
       - content-network
@@ -46,9 +46,9 @@ services:
       - content-core
       - content-discovery
     environment:
-      - twitch-client-id-env=jc9acocupd7auyfhcpaxjv5o5dckh5
-      - twitch-client-secret-env=xq8fdj69ddw43mo4sf8431jb67l9da
-      - wasd-token=rXYtC7aBrtCOAxLun98MYR4vAqrncOToBTEBgspzYUw.XgOu3RnfsgqrWZXsUJOO5TKACcWX5wmz1xTgDljd5CE
+      - twitch-client-id-env= #IF TWITCH SUPPORT IS REQUIRED, PASS THE TWITCH CLIENT ID 
+      - twitch-client-secret-env= #IF TWITCH SUPPORT IS REQUIRED, PASS THE TWITCH CLIENT SECRET 
+      - wasd-token= #IF WASD SUPPORT IS REQUIRED, PASS THE WASD TOKEN
       - EUREKA_HOST=http://content-discovery:9000/eureka
     networks:
       - content-network
