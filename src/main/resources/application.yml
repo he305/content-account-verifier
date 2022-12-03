@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: content-account-verifier
+  zipkin:
+    baseUrl: ${ZIPKIN_HOST:http://localhost:9411/}
 
 eureka:
   client:
